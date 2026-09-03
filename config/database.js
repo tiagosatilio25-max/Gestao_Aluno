@@ -1,14 +1,15 @@
-import mongoose from 'mongoose';    
+import { MongoClient } from "mongodb";
 
+const client = new MongoClient(process.env.MONGO_URI);
 
-const conectarBanco = async () => {
-    try {
-        await mongoose.connect("mongodb://localhost:27017/Gestao-alunos");
+export async function conectarBanco() {
+    await client.connect();
 
-        console.log("MondoDB conectado!");
-    } catch (error) {
-        console.log("Erro ao conectar ao MongoDB: ", error);
-    }   
-};
+    const db = client.db("gestao_escolar");
+
+    console.log("MongoDB conectado!");
+
+    return db;
+}
 
 export default conectarBanco;
