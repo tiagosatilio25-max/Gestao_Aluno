@@ -36,3 +36,18 @@ export async function cadastrarAluno(req,res) {
     }
 }
 
+export function listarAlunos(req,res){
+
+    try{
+        const dados = await listarAlunos();
+
+        res.status(200).json(dados);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar aluno"
+        });
+    }
+}
