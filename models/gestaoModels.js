@@ -12,9 +12,10 @@ export async function cadastrarAluno(dados) {
 export async function listarAlunos() {
     const db = await conectarBanco();
 
-    const alunos = await db.collection("alunos");
-
-    const alunos = await colecaoAlunos.find(filtro, opcoes).toArray();
+    const alunos = await db
+        .collection("alunos")
+        .find({})
+        .toArray();
 
     return alunos;
 }

@@ -10,13 +10,20 @@ import { ObjectId } from "mongodb";
 
 export async function cadastrarAluno(req, res) {
   try {
-    const { nome, idade, email, curso, turma } = req.body;
+    const { nome, idade, email, curso, turma, ordenadoPor } = req.body;
 
-    if (!nome || !idade || !email || !curso || !turma) {
+    if (!nome || !idade || !email || !curso || !turma || !ordenadoPor) {
       return res.status(400).json({
         mensagem: "Todos os campos são obrigatórios",
       });
     }
+     // Verifica se a opção escolhida é válida
+    if (ordenadoPor !== "turma" && ordenadoPor !== "curso") {
+      return res.status(400).json({
+        mensagem: "A pesquisa deve ser ordenada por turma ou curso",
+      });
+    }
+
 
     const dados = {
       nome,
@@ -25,6 +32,7 @@ export async function cadastrarAluno(req, res) {
       curso,
       turma,
       situacao: "ativo",
+      ordenadoPor,
       dataCadastro: new Date(),
     };
 
